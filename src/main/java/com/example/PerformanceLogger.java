@@ -32,13 +32,13 @@ public class PerformanceLogger {
     }
 
     @SuppressWarnings("SpringAopErrorsInspection")
-    @Around("(execution(public * (@Loggable *).*(..))"
+    @Around("(execution(public * (@Loggable *).*(..))" //public methods only
                     + " || initialization((@Loggable *).new(..)))"
                     + " && !execution(String *.toString())"
                     + " && !execution(int *.hashCode())"
                     + " && !execution(boolean *.canEqual(Object))"
                     + " && !execution(boolean *.equals(Object))"
-                    + " && !cflow(call(com.example.PerformanceLogger.new()))")
+                    + " && !cflow(call(PerformanceLogger.new()))")
     public Object wrapClass(final ProceedingJoinPoint point) throws Throwable {
         final Method method =
                 MethodSignature.class.cast(point.getSignature()).getMethod();
@@ -67,7 +67,7 @@ public class PerformanceLogger {
                 return result;
             } else return point.proceed();
         } catch (Throwable e){
-            //TODO: log
+            e.printStackTrace(); //TODO: log instead
             throw e;
         }
     }
