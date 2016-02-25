@@ -1,0 +1,13 @@
+*.class
+*.jar
+*.war
+*.ear
+.idea
+*.iml
+target/
+logs/*
+!.gitkeep
+node_modules/
+bower_components/
+tmp
+.DS_Store
